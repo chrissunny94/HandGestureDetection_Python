@@ -1,0 +1,35 @@
+Look for these links:
+
+For python:
+
+http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_ml/py_table_of_contents_ml/py_table_of_contents_ml.html
+
+For java:
+
+https://www.youtube.com/watch?v=32_CrodwDlE
+
+http://www.javacodegeeks.com/2012/12/hand-and-finger-detection-using-javacv.html
+
+Some things on neural net:
+
+http://www.codeproject.com/Articles/16419/AI-Neural-Network-for-beginners-Part-of
+
+
+
+This is a good set of instructions for detecting and sketching a hand :
+
+www.intorobotics.com/9-opencv-tutorials-hand-gesture-detection-recognition/
+
+This is what i have understood about the technique
+1)Convert to gray scale
+2)Blur the grayscale image
+3)Threshold and find the contours
+4)Find the largest contour which most likely is hand (Provided it is in the centre of the image)
+“WE WILL GET A GOOD HAAR CASCADE FOR HAND”
+5)Find the centre of the contour using moments method
+6)Find the convex and concave regions and 
+7)Draw around the the outer convex regions 
+
+ 
+
+
