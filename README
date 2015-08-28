@@ -18,6 +18,8 @@ Probably we will need to use something like the haarcascade or Eigen methods to 
 Using Algorithms like Eigenfaces and Neural net works to actualy make the system learn not just to detect the convex/concave points but to be more roboust.
 
 
-
-
+Tools 
+- [] Python3
+- [] OpenCV
+- [] PIL
 
