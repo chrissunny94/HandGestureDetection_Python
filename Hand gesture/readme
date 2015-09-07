@@ -30,6 +30,17 @@ This is what i have understood about the technique
 6)Find the convex and concave regions and 
 7)Draw around the the outer convex regions 
 
+
+http://neuralnetworksanddeeplearning.com/chap1.html
+
+The best way around the problem would be to treat the different hand gestures as nothing but somthing similar to 
+handwritten digits .So similar to that  of the above algorithm we should be able to train the algo to learn to 
+understand different hand gesture's .
+
+
+
+
+
  
 
 
