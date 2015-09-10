@@ -14,10 +14,11 @@ L = 17
 # list file directories
 basedir = 'gallery/'
 flist = os.listdir(basedir)
+print(np.size(flist))
 
 # create zero array
 arr = np.zeros((L, 24576))
-
+avg = np.zeros((150,125))
 num = 0
 
 # load data matrix out of PGM files
@@ -27,7 +28,9 @@ for f in flist:
      
      try:
         print "Opening:", tfile
-        im = Image.open(tfile)
+        im = Image.open( tfile )
+        print( np.shape(im) )
+        avg = avg + im
         
         print "Storing image in memory matrix"
         for i in xrange(im.size[0]):
@@ -38,11 +41,44 @@ for f in flist:
      except:
         pass
 
+
+avg = avg/16
+
+base='eigenvectors/'
+
+temp = np.zeros((150,125))
+
+for f in flist:
+     # construct target
+     tfile = basedir + str(f)
+     
+     try:
+        print "eigenvectors:", tfile
+
+        im = Image.open( tfile )
+        
+        temp = im - avg 
+        cv2.imwrite("eigenvectors/" + f,temp)
+
+        
+        
+     except:
+        pass
+
+
+
+
+
+
+
+
 arr = arr / 256
-cv2.imshow("hello",arr.mean(0))
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-cv2.imwrite("gallery/test.png",arr.mean(0))
+
+print(np.shape(avg))
+#cv2.imshow("hello",avg)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+#cv2.imwrite("avg/avg.png",avg)
 # subtract the mean image from each image sample
 for i in xrange(arr.shape[0]):
     arr[i,:] = arr[i,:] - arr.mean(0)
