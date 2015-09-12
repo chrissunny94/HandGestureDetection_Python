@@ -1,4 +1,4 @@
-#!/usr/bin/python
+
 import cv2
 import os
 import scipy
@@ -8,20 +8,31 @@ import Image
 import numpy as np
 import numpy.linalg as lin
 
-# total count of faces
-L = 17
+
 
 # list file directories
 basedir = 'gallery/'
 flist = os.listdir(basedir)
 print(np.size(flist))
 
+
+# Count of faces in the database
+L = np.size(flist)
+
 # create zero array
 arr = np.zeros((L, 24576))
 avg = np.zeros((150,125))
+conc = np.zeros((150,125))
+temp = np.zeros((150,125))
+avg1 = np.zeros((150*125,L))
+avg2 = np.zeros((150*125,L))
 num = 0
 
 # load data matrix out of PGM files
+# convert it into a column matrix
+# Join all the columns
+
+count =0
 for f in flist:
      # construct target
      tfile = basedir + str(f)
@@ -30,6 +41,10 @@ for f in flist:
         print "Opening:", tfile
         im = Image.open( tfile )
         print( np.shape(im) )
+
+
+
+
         avg = avg + im
         
         print "Storing image in memory matrix"
@@ -41,10 +56,11 @@ for f in flist:
      except:
         pass
 
-
-avg = avg/16
+#Finding the avg face
+avg = avg/L
 
 base='eigenvectors/'
+
 
 temp = np.zeros((150,125))
 
@@ -58,16 +74,30 @@ for f in flist:
         im = Image.open( tfile )
         
         temp = im - avg 
+        avg1[:,count] = np.reshape( temp  , (150*125, 1) )
+        count= count + 1 
         cv2.imwrite("eigenvectors/" + f,temp)
+        cov=np.cov(temp)
+        cv2.imwrite("cov/" + f,cov)
+
+        conc = conc + temp*(np.transpose(temp))
+
 
         
         
      except:
         pass
 
+a = np.array( avg1 )
+b = np.array(np.transpose( avg1 ))
+cv2.imwrite("god/" + f, a.dot(b) )
+conc =  conc/17
 
 
-
+#cv2.imshow("Cov",np.transpose(avg))
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+cv2.imwrite("cov/avg_cov.png",conc)
 
 
 
@@ -89,7 +119,7 @@ print "Computing sparse SVD of data matrix"
 U, V, T = lin.svd(arr.transpose(), full_matrices=False)
 
 # print eigenfaces to files
-print "Writing eigenvectors to disk..."
-for i in xrange(L):
-   scipy.misc.imsave('eigenface_' + str(i) + '.png', U[:,i].reshape(192,128))
+#print "Writing eigenvectors to disk..."
+#for i in xrange(L):
+#   scipy.misc.imsave('eigenface_' + str(i) + '.png', U[:,i].reshape(192,128))
 
