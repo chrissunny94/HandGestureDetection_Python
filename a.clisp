@@ -1,0 +1,39 @@
+ 
+
+(print "Progrma to do linear search  ")
+
+ (setq list '(2 2 3 4 5 6 7 8))
+ 
+
+ (print list)
+ (setq a 0)
+
+ (print "Enter the value :")
+ (setq value (read))
+
+ (loop for i in list do (if (= i value) (setq a 1) ))
+
+ (if (= a 1) (print "Element Found!") )
+ (if (= a 0) (print "NOT Element Found!") )
+
+ 
+
+(print "To see if the list is sorted or not")
+
+ (setq g 0)
+ (loop for i in list do (if (>= i value) (setq g 1) ))
+
+ (if (= g 1) (print "Sorted in the Decreasing order") )
+ 
+
+ (setq b 0)
+ (loop for i in list do (if (<= i value) (setq b 1) ))
+
+ (if (= b 1) (print "Sorted in the increasing order") )
+ 
+
+
+ (if (= g 0) (if (= b 0) (print "NOT SORTED")) )
+
+
+

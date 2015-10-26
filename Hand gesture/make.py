@@ -6,16 +6,20 @@ while( cap.isOpened() ) :
     ret,img = cap.read() #Returns the image and the System report on the same
     
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) #Converts the img into a grayscale image
-    cv2.imshow('grayscale',gray)
+    #cv2.imshow('grayscale',gray)
     blur = cv2.GaussianBlur(gray,(5,5),0)#Blurs the image to blur
-    cv2.imshow('after bluring',blur)
-    ret,thresh1 = cv2.threshold(blur,50,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    #cv2.imshow('after bluring',blur)
+    ret,thresh1 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
     
     contours, hierarchy = cv2.findContours(thresh1,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     drawing = np.zeros(img.shape,np.uint8)
 
     max_area=0
    
+
+
+   #this is the part that calculates the max area part
+   #we will have to skip this part as for the region of interest
     for i in range(len(contours)):
             cnt=contours[i]
             area = cv2.contourArea(cnt)
