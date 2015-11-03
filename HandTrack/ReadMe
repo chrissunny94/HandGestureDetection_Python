@@ -1,0 +1,10 @@
+tryhand.py
+This is a simple code to track the hand .
+
+The cropped out image will be stored in the folder named "hand"
+
+////////////////////////////////////////////////////////////////
+
+gesture.py 
+
+This will take the cropped out image and then do the further processing 
