@@ -5,7 +5,7 @@ import numpy as np
 def main():
     cap = cv2.VideoCapture(0)
     while(cap.isOpened()):
-        img       = cap.read()
+        ret, img       = cap.read()
 
         skinMask = HSVBin(img)
         contours= getContours(skinMask , img)
@@ -16,7 +16,7 @@ def main():
         k = cv2.waitKey(10)
         #if k == 27:
         #    break
-def getContours(img, img1):
+def getContours(img , img1):
     kernel = np.ones((5,5),np.uint8)
     closed = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
     closed = cv2.morphologyEx(closed, cv2.MORPH_CLOSE, kernel)
@@ -30,7 +30,7 @@ def getContours(img, img1):
                 rect = cv2.minAreaRect(cont)
                 box = cv2.cv.BoxPoints(rect)
                 validContours.append(np.int0(box))
-                im = img1[y-20: y + h + 20, x -20: x + w +20]  #img[y: y + h, x: x + w]
+                im = img1[y: y + h, x: x + w]  #img[y: y + h, x: x + w]
                 cv2.imshow('hand', im)
                 cv2.imwrite('hand/messigray.png',im)
                 
