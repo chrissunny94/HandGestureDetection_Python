@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import math
 cap = cv2.VideoCapture(0)
-fgbg = cv2.BackgroundSubtractorMOG(history=3,nmixtures=5,backgroundRatio=0.5, noiseSigma=0.01) 
+fgbg = cv2.BackgroundSubtractorMOG(history=3,nmixtures=4,backgroundRatio=0.5, noiseSigma=0.01) 
 fbg = 0
 
 
