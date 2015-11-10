@@ -21,6 +21,7 @@ def face_detect(image):
 
 
 def main():
+    Point p
     if len(sys.argv) == 2:
         #get image form video
         video_capture = cv2.VideoCapture(0)

@@ -11,6 +11,8 @@ backSub = cv2.BackgroundSubtractorMOG2()
 
 while(cap.isOpened()):
 
+
+
 	#Getting the image from the WebCam    Edit  on 7th-OCt 
 	ret, img = cap.read()
     
@@ -19,11 +21,12 @@ while(cap.isOpened()):
 
 		#Showing the Background Subtractor Edit on 7th Oct
 	cv2.imshow( 'BackGroundSubtractor' , back_img )
-	contours, hierarchy = cv2.findContours(back_img.copy(),cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+	contours, hierarchy = cv2.findContours(back_img.clone(),cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 	print contours , hierarchy
 	
 	max_area = -1
-    for i in range(len(contours)):
+    for i in range(len(contours)) :
+    	
     	cnt=contours[i]
         area = cv2.contourArea(cnt)
         if(area>max_area ):
