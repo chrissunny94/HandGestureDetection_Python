@@ -27,7 +27,7 @@ def face_detect(image):
 def detector(image):
   img_rgb = image
   img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-  template = cv2.imread('template.jpg',0)
+  template = cv2.imread('template_line.jpg',0)
   w, h = template.shape[::-1]
   counter = 0
   res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
@@ -69,7 +69,7 @@ def main():
                         print("YOLO")
                     else:
                         print("Fuck you")
-            		write = 0
+            	write = 0
             	img = np.zeros((512,512,3), np.uint8)
             	count = 0
             cv2.imshow('Processed Video', frame)
