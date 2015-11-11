@@ -11,10 +11,10 @@ def color_detect(img):
     #img = cv2.GaussianBlur(img, (15, 15), 0)
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     frame_threshed = cv2.inRange(hsv, PINK_MIN, PINK_MAX)
-    res = cv2.bitwise_and(img,img, mask= frame_threshed)
-    cv2.imshow('res',res)
+    #res = cv2.bitwise_and(img,img, mask= frame_threshed)
+    #cv2.imshow('res',res)
     contours,hierarchy = cv2.findContours(frame_threshed, 1, 2)
-    max_area = 150
+    max_area = 250
     found = 0
     if contours:
         for i in contours:
@@ -94,6 +94,7 @@ def main():
                 count = 0
             	cv2.circle(img,(x,y),35,0xff,-1)
                 cv2.imshow('canvas',img)
+                print('working')
             	if(write ==2):
             		write = 1
             	else:
@@ -104,8 +105,8 @@ def main():
                 result = detector(img)
                 if(result == 1):
                     print("YOLO detected")
-                #else:
-                   # print("you")
+                else:
+                    print("you")
             	write = 0
             	img = np.zeros((512,512,3), np.uint8)
                 cv2.imshow('canvas',img)
