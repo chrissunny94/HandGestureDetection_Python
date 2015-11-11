@@ -94,7 +94,7 @@ def main():
                 count = 0
             	cv2.circle(img,(x,y),35,0xff,-1)
                 cv2.imshow('canvas',img)
-                print('working')
+                #print('working')
             	if(write ==2):
             		write = 1
             	else:
