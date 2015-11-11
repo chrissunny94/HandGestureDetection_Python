@@ -22,7 +22,39 @@ def face_detect(image):
         xx = x+w/2
         yy = y+h/2
     return image,xx,yy;
+PINK_MIN = np.array([120, 50, 50], np.uint8)
+PINK_MAX = np.array([180, 180, 200], np.uint8)
+def color_detect(img):
+    #img = cv2.flip(img, 1)
+    #thresh = cv2.namedWindow('Threshold', cv2.WINDOW_NORMAL)
+    #orig = cv2.namedWindow('Original', cv2.WINDOW_NORMAL)
+    #img = cv2.GaussianBlur(img, (15, 15), 0)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    frame_threshed = cv2.inRange(hsv, PINK_MIN, PINK_MAX)
+    res = cv2.bitwise_and(img,img, mask= frame_threshed)
+    cv2.imshow('res',res)
+    contours,hierarchy = cv2.findContours(frame_threshed, 1, 2)
+    max_area = 100
+    found = 0
+    if contours:
+        for i in contours:
+            area = cv2.contourArea(i)
+            if area > max_area:
+                found = 1
+                cnt = i
+        if(found == 1):
+            x,y,w,h = cv2.boundingRect(cnt)
+            cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
+            centroid_x = (x + x+w)/2
+            centroid_y = (y + y+h)/2
 
+            cv2.circle(img, (centroid_x, centroid_y), 2, (0,0,255), 2)
+        
+            cv2.imshow('Threshold', frame_threshed)
+            cv2.imshow('Original', img)
+            return img,centroid_x,centroid_y
+        else:
+            return img,0,0
 
 def main():
     if len(sys.argv) == 2:
@@ -38,8 +70,8 @@ def main():
         while True:
             # Capture frame-by-frame
             ret, frame = video_capture.read()
-            if(counter%2!=0):
-            	frame,x,y = face_detect(frame)
+            #if(counter%2!=0):
+            frame,x,y = color_detect(frame)
             if(x==0 & y==0):
             	count = count + 1;
             else:
