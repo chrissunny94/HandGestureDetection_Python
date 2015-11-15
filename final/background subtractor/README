@@ -1,0 +1,8 @@
+This is a very usefull tool on OpenCv
+1) Gets the images from the web cam
+2) Stores the images in a queue
+3) Finds the avg of the queue 
+4) Subtracts the avg from the current CamFeed
+5) This will give only the Dynamic objects in the frame
+
+This could be later used in feature detection when it comes to HandGestures , Facial Expression reading , Tracking Dynamic Objects 
