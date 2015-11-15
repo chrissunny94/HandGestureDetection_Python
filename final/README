@@ -1,1 +1,14 @@
+Libraries Used
+--------------
+1)OpenCv  (2.4.9 for python2.7)
+2)Numpy
+3)Scipy
+4)MathPlotLib
+5)OS & Sys
+6)subprocess & time
+
+We have used Python to make the Individual Methods (prototypes / proof_of_concept) and JAVA for the GUI.
+
+
+
 Put all the working prototypes in this folder
