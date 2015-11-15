@@ -1,0 +1,9 @@
+We are doing the following steps
+1)Getting the image from the camera
+2)Converting the image into GreyScale
+3)Blurring the GreyScale Image
+4)ThreshHolding on the Blurred image
+5)Apply contour map to find the largest cotour region in the image (Most likely it will be the Hand )
+6)Then apply the hull point detector (to find the convex and concave points)
+7)Using simple logic , we can predit the hand gesture with accuracy of upto 65%
+
