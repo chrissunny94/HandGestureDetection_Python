@@ -2,26 +2,37 @@ import cv2
 import numpy as np
 import math
 cap = cv2.VideoCapture(0)
+
 while(cap.isOpened()):
+    print("\n1.Getting the VideoCapture")
     ret, img = cap.read()
+    print("\n2.drawing a rectangle in the main frame")
     cv2.rectangle(img,(400,400),(100,100),(0,255,0),0)
+    print("\n3.Croping the MainFrame")
     crop_img = img[100:300, 100:300]
+    print("\n4.Converting it into greyscale")
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
     value = (35,35)
+    print("\n5.Blurring the greyscale image")
     blurred = cv2.GaussianBlur(grey, value, 0)
-    _, thresh1 = cv2.threshold(blurred, 200, 255,
-                               cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    print("\n6.Thresholded on the blurimage")
+    _, thresh1 = cv2.threshold(blurred, 200, 255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    print("\n7.Image ")
     cv2.imshow('Thresholded', thresh1)
+    print("\n8.Finding the Largest Contour")
     contours, hierarchy = cv2.findContours(thresh1.copy(),cv2.RETR_TREE, \
             cv2.CHAIN_APPROX_NONE)
     max_area = -1
+
     for i in range(len(contours)):
         cnt=contours[i]
         area = cv2.contourArea(cnt)
         if(area>max_area):
             max_area=area
             ci=i
+    
     cnt=contours[ci]
+    print("\n9.Drawing a rectangle around max Contour")
     x,y,w,h = cv2.boundingRect(cnt)
     cv2.rectangle(crop_img,(x,y),(x+w,y+h),(0,0,255),0)
     hull = cv2.convexHull(cnt)
