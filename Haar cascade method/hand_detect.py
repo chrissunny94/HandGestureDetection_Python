@@ -4,17 +4,16 @@ import numpy as np
 from matplotlib import pyplot as plt 
 PINK_MIN = np.array([120, 50, 50], np.uint8)
 PINK_MAX = np.array([180, 180, 200], np.uint8)
+BLUE_MIN = np.array([100,150,0], np.uint8)
+BLUE_MAX = np.array([140,255,255], np.uint8)
 def color_detect(img):
-    #img = cv2.flip(img, 1)
-    #thresh = cv2.namedWindow('Threshold', cv2.WINDOW_NORMAL)
-    #orig = cv2.namedWindow('Original', cv2.WINDOW_NORMAL)
-    #img = cv2.GaussianBlur(img, (15, 15), 0)
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    frame_threshed = cv2.inRange(hsv, PINK_MIN, PINK_MAX)
+    #frame_threshed = cv2.inRange(hsv, PINK_MIN, PINK_MAX)
+    frame_threshed = cv2.inRange(hsv, BLUE_MIN, BLUE_MAX)
     #res = cv2.bitwise_and(img,img, mask= frame_threshed)
     #cv2.imshow('res',res)
     contours,hierarchy = cv2.findContours(frame_threshed, 1, 2)
-    max_area = 250
+    max_area = 350
     found = 0
     if contours:
         for i in contours:
@@ -32,31 +31,9 @@ def color_detect(img):
         
             #cv2.imshow('Threshold', frame_threshed)
             #cv2.imshow('Original', img)
-            return img,centroid_x,centroid_y
-        else:
-            return img,0,0
+            return img,centroid_x,centroid_y    
+    return img,0,0
 
-
-def face_detect(image):
-    cascPath = sys.argv[1]
-    HaarCascade = cv2.CascadeClassifier(cascPath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = HaarCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(40, 40),
-        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
-    )
-    xx = 0
-    yy = 0
-    # Draw a rectangle around the faces
-    for (x, y, w, h) in faces:
-        cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        #cv2.circle(image,(x+w/2,y+h/2),2,0xff)
-        xx = x+w/2
-        yy = y+h/2
-    return image,xx,yy;
 
 def detector(image):
   img_rgb = image
@@ -66,14 +43,14 @@ def detector(image):
   counter = 0
   res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
   threshold = 0.5
-  loc = np.where( res >= threshold)
-  for pt in zip(*loc[::-1]):
+  posloc = np.where( res >= threshold)
+  for pt in zip(*posloc[::-1]):
     #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
     counter = 1
   return counter
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 1:
         #get image form video
   	counter = 0;
   	count = 0;
@@ -88,6 +65,8 @@ def main():
             ret, frame = video_capture.read()
             #if(counter%2 == 0):
             frame,x,y = color_detect(frame)
+            if(frame == None or x==None or y==None):
+                continue
             if(x==0 & y==0):
             	count = count + 1;
             else:
@@ -104,9 +83,9 @@ def main():
             	#if(write == 1):
                 result = detector(img)
                 if(result == 1):
-                    print("YOLO detected")
-                else:
-                    print("you")
+                    print("Initiate Gesture")
+                #else:
+                 #   print("you")
             	write = 0
             	img = np.zeros((512,512,3), np.uint8)
                 cv2.imshow('canvas',img)
@@ -121,8 +100,6 @@ def main():
         #release everything
         video_capture.release()
         cv2.destroyAllWindows()
-    else:
-        print("usage : python hand_detect.py [har CascadeClassifier file]")
 
 if __name__ == '__main__':
     main()
