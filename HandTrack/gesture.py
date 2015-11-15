@@ -50,7 +50,7 @@ while(cap.isOpened()):
 
     #cv2.rectangle(crop_img,(x,y),(x+w,y+h),(0,0,255),0)
     #cv2.rectangle(fbg_crop,(x,y),(x+w,y+h),(0,0,255),0)
-    #hull = cv2.convexHull(fbg_crop)
+    hull = cv2.convexHull(fbg_crop)
     
 
     
@@ -59,7 +59,7 @@ while(cap.isOpened()):
     #cv2.drawContours(drawing,[hull],0,(0,0,255),0)
     
 
-    hull = cv2.convexHull(cv2.Mat(fbg_crop),2,1)
+    #hull = cv2.convexHull(cv2.Mat(fbg_crop),2,1)
     defects = cv2.convexityDefects(cnt,hull)
     count_defects = 0
     cv2.drawContours(thresh1, contours, -1, (0,255,0), 3)
