@@ -3,7 +3,9 @@ import numpy as np
 import math
 cap = cv2.VideoCapture(0)
 while(cap.isOpened()):
+    print("INIT......")
     ret, img = cap.read()
+    print("\nGetting the camera feed and storing it in the Image matrix")
     cv2.rectangle(img,(300,300),(100,100),(0,255,0),0)
     crop_img = img[100:300, 100:300]
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
