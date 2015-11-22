@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import subprocess
 import os
-from matplotlib import pyplot as plt 
+#from matplotlib import pyplot as plt 
 PINK_MIN = np.array([120, 50, 50], np.uint8)
 PINK_MAX = np.array([180, 180, 200], np.uint8)
 BLUE_MIN = np.array([100,150,0], np.uint8)
@@ -53,9 +53,9 @@ def detector(image):
         #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
         counter = 2
     posloc3 = np.where( res3 >= threshold)
-    for pt in zip(*posloc3[::-1]):
+    #for pt in zip(*posloc3[::-1]):
         #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
-        counter = 3
+        #counter = 3
     return counter
 
 def main():
@@ -100,7 +100,7 @@ def main():
             	img = np.zeros((512,512,3), np.uint8)
                 cv2.imshow('canvas',img)
             	count = 0
-            cv2.imshow('Processed Video', frame)
+            #cv2.imshow('Processed Video', frame)
             oldx = x
             oldy = y
             counter = counter+1;
