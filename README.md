@@ -7,10 +7,21 @@ Using hand gestures along with standard desktop objects such as Phones and Pens 
 
 
 
+### Architecture
 
 ![](docs/architecture.png)
+
+### Detecting hand
+
 ![](docs/detect_hand.png) 
+
+
+### Detecting pattern
+
  ![](docs/object_detection.png) 
+
+
+### Detecting fingure gestures
  
  ![](docs/screenshot.png) 
 
